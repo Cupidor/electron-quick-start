@@ -1,5 +1,5 @@
 {
-  "name": "electron-quick-start",
+  "name": "mint",
   "version": "1.0.0",
   "description": "A minimal Electron application",
   "main": "main.js",
@@ -23,10 +23,45 @@
     "electron-builder": "^22.4.1"
   },
   "build": {
-    "appId": "xxx",
-    "productName": "新疆水科院隧洞监测",
+    "appId": "com.leon.tunnel",
+    "productName": "Mint隧洞监测系统",
+    "copyright": "南京葛南实业有限公司",
+    "nsis": {
+      "oneClick": false, 
+      "allowElevation": true, 
+      "allowToChangeInstallationDirectory": true, 
+      "installerIcon": "./ant/icons/icon.ico",
+      "uninstallerIcon": "./ant/icons/icon.ico",
+      "installerHeaderIcon": "./ant/icons/icon.ico", 
+      "createDesktopShortcut": true, 
+      "createStartMenuShortcut": true,
+      "shortcutName": "Mint隧洞监测系统"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
     "mac": {
       "category": "your.app.category.type"
+    },
+    "win": {
+      "icon": "ant/icons/apple.png",
+      "target": [
+        {
+          "target": "nsis"
+        }
+      ]
     }
   }
 }
