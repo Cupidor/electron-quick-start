@@ -1,18 +1,19 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Menu } = require("electron");
 const path = require("path");
 
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1000,
+    height: 700,
+    minWidth: 1000,
     webPreferences: {
       // preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
       webSecurity: false,
-      allowRunningInsecureContent: true
-    }
+      allowRunningInsecureContent: true,
+    },
   });
 
   // and load the index.html of the app.
@@ -21,18 +22,20 @@ function createWindow() {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
+  // 关闭窗体顶部菜单
+  Menu.setApplicationMenu(null);
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on("ready", function() {
+app.on("ready", function () {
   runExec("start.bat"); // 生效啦，可以做些什么执行一种相对的同步状态，例如判断输出内容到什么了
   createWindow();
 });
 
 // Quit when all windows are closed.
-app.on("window-all-closed", function() {
+app.on("window-all-closed", function () {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== "darwin") {
@@ -41,17 +44,17 @@ app.on("window-all-closed", function() {
     stopProcess = exec("stop.bat", {});
     // 不受child_process默认的缓冲区大小的使用方法，没参数也要写上{}：workerProcess = exec(cmdStr, {})
     // 打印正常的后台可执行程序输出
-    stopProcess.stdout.on("data", function(data) {
+    stopProcess.stdout.on("data", function (data) {
       console.log("stdout: " + data);
     });
 
     // 打印错误的后台可执行程序输出
-    stopProcess.stderr.on("data", function(data) {
+    stopProcess.stderr.on("data", function (data) {
       console.log("stderr: " + data);
     });
 
     // 退出之后的输出
-    stopProcess.on("close", function(code) {
+    stopProcess.on("close", function (code) {
       //在bat执行完毕后再执行quit()
       console.log("out code：" + code);
       app.quit();
@@ -59,7 +62,7 @@ app.on("window-all-closed", function() {
   }
 });
 
-app.on("activate", function() {
+app.on("activate", function () {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -82,17 +85,17 @@ function runExec(cmdStr) {
   workerProcess = exec(cmdStr, {});
   // 不受child_process默认的缓冲区大小的使用方法，没参数也要写上{}：workerProcess = exec(cmdStr, {})
   // 打印正常的后台可执行程序输出
-  workerProcess.stdout.on("data", function(data) {
+  workerProcess.stdout.on("data", function (data) {
     console.log("stdout: " + data);
   });
 
   // 打印错误的后台可执行程序输出
-  workerProcess.stderr.on("data", function(data) {
+  workerProcess.stderr.on("data", function (data) {
     console.log("stderr: " + data);
   });
 
   // 退出之后的输出
-  workerProcess.on("close", function(code) {
+  workerProcess.on("close", function (code) {
     console.log("out code：" + code);
   });
 }
