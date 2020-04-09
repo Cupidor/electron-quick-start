@@ -22,8 +22,41 @@ function createWindow() {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
-  // 关闭窗体顶部菜单
-  Menu.setApplicationMenu(null);
+  // 修改窗体顶部菜单
+  const template = [
+    {
+      label: "视图",
+      submenu: [
+        {
+          label: "刷新",
+          role: "reload",
+        },
+        {
+          label: "强制刷新",
+          role: "forcereload",
+        },
+        {
+          label: "打开调试",
+          role: "toggledevtools",
+        },
+      ],
+    },
+    {
+      label: "帮助",
+      submenu: [
+        {
+          label: "联系我们",
+          click() {
+            require("electron").shell.openExternal(
+              "http://www.njgn.com/contact/contact.asp"
+            );
+          },
+        },
+      ],
+    },
+  ];
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
 }
 
 // This method will be called when Electron has finished
