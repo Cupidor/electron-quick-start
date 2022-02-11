@@ -1,12 +1,14 @@
 {
-  "name": "mintunnel",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "mint",
+  "version": "1.0.10",
+  "description": "Mint数据采集系统 v1.1.0.12",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "pack_ia32": "electron-builder --dir --ia32",
+    "dist": "electron-builder",
+    "dist_ia32": "electron-builder --win --ia32"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -19,23 +21,23 @@
   "author": "南京葛南实业有限公司",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^8.1.1",
+    "electron": "^6.1.9",
     "electron-builder": "^22.4.1"
   },
   "build": {
-    "appId": "com.leon.tunnel",
-    "productName": "Mint隧洞监测系统",
+    "appId": "com.collect",
+    "productName": "Mint数据采集系统",
     "copyright": "南京葛南实业有限公司",
     "nsis": {
-      "oneClick": false, 
-      "allowElevation": true, 
-      "allowToChangeInstallationDirectory": true, 
-      "installerIcon": "./ant/icons/icon.ico",
-      "uninstallerIcon": "./ant/icons/icon.ico",
-      "installerHeaderIcon": "./ant/icons/icon.ico", 
-      "createDesktopShortcut": true, 
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./ant/icons/icon.png",
+      "uninstallerIcon": "./ant/icons/icon.png",
+      "installerHeaderIcon": "./ant/icons/icon.png",
+      "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Mint隧洞监测系统"
+      "shortcutName": "Mint数据采集系统"
     },
     "dmg": {
       "contents": [
@@ -53,7 +55,7 @@
       ]
     },
     "mac": {
-      "category": "your.app.category.type"
+      "category": "your.app.mint.collect"
     },
     "win": {
       "icon": "ant/icons/icon.png",
@@ -65,8 +67,8 @@
     },
     "extraResources": [
       {
-        "from": "ant/hh",
-        "to": "../" 
+        "from": "./hh",
+        "to": "../"
       }
     ]
   }
